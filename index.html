@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workshop: Bikin Website Portofoliomu Sendiri</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background: #ffffff;
+        }
+
+        .slide {
+            width: 90%;
+            height: 80%;
+            position: absolute;
+            display: none;
+            top: 10%;
+            left: 5%;
+            padding: 40px;
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            overflow-y: auto;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide-content {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-weight: 500;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: #34495e;
+            font-weight: 500;
+        }
+
+        h4 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            color: #3498db;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .workshop-header {
+            background: #3498db;
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .analogy-box {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-style: italic;
+            border-left: 4px solid #3498db;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .content-card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .comparison-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .bad-example {
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            color: #2d3748;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .good-example {
+            background: #f0fff4;
+            border: 1px solid #c6f6d5;
+            color: #2d3748;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background: #3498db;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .mockup-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 25px 0;
+        }
+
+        .mockup-bad {
+            background: #fff;
+            border: 2px solid #e53e3e;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .mockup-good {
+            background: #fff;
+            border: 2px solid #38a169;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .checklist {
+            text-align: left;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .checklist ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 6px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: "✓";
+            color: #38a169;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .warning-box {
+            background: #fffbf0;
+            border: 1px solid #fbd38d;
+            color: #744210;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #f6ad55;
+        }
+
+        /* NAVIGATION STYLES */
+        .nav-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border-top: 1px solid #e9ecef;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            min-width: 100px;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: #2980b9;
+        }
+
+        .nav-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .slide-indicator {
+            background: #34495e;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .slide-dots {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #bdc3c7;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .dot.active {
+            background: #3498db;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                width: 95%;
+                left: 2.5%;
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            .comparison-container,
+            .mockup-container {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                padding: 10px 15px;
+            }
+
+            .nav-btn {
+                min-width: 80px;
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="slide-content">
+                <h1>Bikin Website Portofoliomu Sendiri</h1>
+                <p class="subtitle">Hands-On Workshop: From Zero to Professional Portfolio</p>
+                <div class="workshop-header">
+                    <h3>Mengapa Website Portfolio adalah Game Changer?</h3>
+                    <p>Di era digital ini, website portfolio bukan lagi nice-to-have, tetapi absolute necessity untuk membangun kredibilitas profesional dan membedakan diri dari kompetitor.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Pentingnya Web Portfolio -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Mengapa Website Portfolio Sangat Krusial?</h2>
+                
+                <div class="analogy-box">
+                    <p>Website portfolio adalah seperti etalase toko di jalan utama versus lapak di gang sempit. Mana yang lebih menarik perhatian customer? Mana yang memberikan kesan lebih profesional dan terpercaya?</p>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">84%</span>
+                        <p>Recruiter melakukan online research sebelum menghubungi kandidat</p>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">6 detik</span>
+                        <p>Waktu rata-rata recruiter menilai profesionalisme kandidat online</p>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">3x</span>
+                        <p>Lebih tinggi peluang callback dengan portfolio online yang solid</p>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">67%</span>
+                        <p>Hiring manager menganggap portfolio digital sebagai faktor penentu</p>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h4>First Impression Control</h4>
+                        <p>Anda mengontrol 100% narrative pertama tentang diri Anda. Tidak bergantung pada platform pihak ketiga atau algoritma yang bisa berubah sewaktu-waktu.</p>
+                    </div>
+                    <div class="content-card">
+                        <h4>24/7 Personal Marketing</h4>
+                        <p>Website bekerja untuk Anda bahkan saat tidur. Calon klien atau employer bisa mengenal work quality Anda kapan saja, dari mana saja.</p>
+                    </div>
+                    <div class="content-card">
+                        <h4>Professional Credibility</h4>
+                        <p>Menunjukkan bahwa Anda serious dengan karir dan up-to-date dengan teknologi. Signal yang kuat untuk employer di era digital.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Bad vs Good Portfolio -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Anatomy: Bad vs Good Portfolio</h2>
+                
+                <div class="analogy-box">
+                    <p>Perbedaan portfolio buruk dan bagus seperti membandingkan warung pinggir jalan dengan restoran mewah. Keduanya menjual makanan, tapi experience dan perceived value-nya sangat berbeda.</p>
+                </div>
+
+                <div class="mockup-container">
+                    <div class="mockup-bad">
+                        <h4 style="color: #e53e3e; margin-bottom: 10px;">BAD Portfolio Example</h4>
+                        <div style="background: #f7f7f7; padding: 10px; margin: 10px 0; border-radius: 4px;">
+                            <p style="font-size: 1.1rem; font-weight: bold;">John Doe Portfolio</p>
+                            <p style="font-size: 0.9rem; color: #666; margin: 8px 0;">welcome to my website!!!!</p>
+                            <p style="font-size: 0.85rem; margin: 8px 0;">About Me: I'm a graphic designer. I like to design things. Here are some of my works.</p>
+                            <div style="display: flex; gap: 8px; margin: 10px 0;">
+                                <div style="width: 40px; height: 30px; background: #ddd; border-radius: 2px;"></div>
+                                <div style="width: 40px; height: 30px; background: #ddd; border-radius: 2px;"></div>
+                                <div style="width: 40px; height: 30px; background: #ddd; border-radius: 2px;"></div>
+                            </div>
+                            <p style="font-size: 0.8rem; color: #666;">Contact: johndoe@email.com</p>
+                        </div>
+                        
+                        <div style="margin-top: 15px; font-size: 0.85rem; color: #e53e3e;">
+                            <strong>Problems:</strong>
+                            <ul style="margin-top: 5px; padding-left: 15px;">
+                                <li>Generic template tanpa customization</li>
+                                <li>Typo dan grammar errors</li>
+                                <li>No clear value proposition</li>
+                                <li>Low quality images/placeholders</li>
+                                <li>No project details atau case studies</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mockup-good">
+                        <h4 style="color: #38a169; margin-bottom: 10px;">GOOD Portfolio Example</h4>
+                        <div style="background: #f7f9fc; padding: 15px; margin: 10px 0; border-radius: 4px; border-left: 3px solid #3498db;">
+                            <p style="font-size: 1.2rem; font-weight: 600; color: #2c3e50;">Sarah Creative</p>
+                            <p style="font-size: 0.95rem; color: #34495e; margin: 8px 0; font-weight: 500;">Visual Designer specializing in Brand Identity & Digital Experiences</p>
+                            <p style="font-size: 0.9rem; color: #5a6c7d; margin: 12px 0; line-height: 1.4;">I help startups and SMEs build memorable brand identities that convert visitors into customers. 5+ years experience, 50+ happy clients.</p>
+                            <div style="display: flex; gap: 10px; margin: 15px 0;">
+                                <div style="width: 60px; height: 45px; background: linear-gradient(45deg, #667eea, #764ba2); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem;">Case Study 1</div>
+                                <div style="width: 60px; height: 45px; background: linear-gradient(45deg, #f093fb, #f5576c); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem;">Case Study 2</div>
+                                <div style="width: 60px; height: 45px; background: linear-gradient(45deg, #4facfe, #00f2fe); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.7rem;">Case Study 3</div>
+                            </div>
+                            <div style="display: flex; gap: 8px; font-size: 0.8rem;">
+                                <span style="background: #ecf0f1; padding: 4px 8px; border-radius: 12px; color: #2c3e50;">LinkedIn</span>
+                                <span style="background: #ecf0f1; padding: 4px 8px; border-radius: 12px; color: #2c3e50;">Behance</span>
+                                <span style="background: #ecf0f1; padding: 4px 8px; border-radius: 12px; color: #2c3e50;">Contact</span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 15px; font-size: 0.85rem; color: #38a169;">
+                            <strong>Success Factors:</strong>
+                            <ul style="margin-top: 5px; padding-left: 15px;">
+                                <li>Clear value proposition & specialization</li>
+                                <li>Professional copywriting & grammar</li>
+                                <li>Consistent visual branding</li>
+                                <li>High-quality project presentations</li>
+                                <li>Social proof & credibility indicators</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Common Mistakes -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Portfolio Mistakes yang Harus Dihindari</h2>
+                
+                <div class="analogy-box">
+                    <p>Kesalahan dalam portfolio seperti pakai baju formal tapi sepatu sendal ke interview - detail kecil yang merusak kesan keseluruhan dan menghilangkan kesempatan emas.</p>
+                </div>
+
+                <div class="comparison-container">
+                    <div class="bad-example">
+                        <h3>DON'T - Common Mistakes</h3>
+                        <ul style="margin: 15px 0;">
+                            <li><strong>Generic About Me:</strong> "I'm passionate about design" - terlalu umum, tidak memorable</li>
+                            <li><strong>No Context Projects:</strong> Hanya menampilkan hasil akhir tanpa process atau challenges</li>
+                            <li><strong>Poor Image Quality:</strong> Screenshot blur, lighting buruk, tidak konsisten</li>
+                            <li><strong>Overloaded Content:</strong> Menampilkan semua project termasuk yang mediocre</li>
+                            <li><strong>No Contact CTA:</strong> Sulit dihubungi, tidak ada clear next step</li>
+                            <li><strong>Outdated Work:</strong> Masih menampilkan project 3+ tahun lalu</li>
+                            <li><strong>Technical Issues:</strong> Loading lambat, broken links, not mobile-friendly</li>
+                        </ul>
+                    </div>
+
+                    <div class="good-example">
+                        <h3>DO - Best Practices</h3>
+                        <ul style="margin: 15px 0;">
+                            <li><strong>Specific Positioning:</strong> "UI/UX Designer for FinTech startups" - clear niche</li>
+                            <li><strong>Case Study Format:</strong> Problem → Process → Solution → Impact</li>
+                            <li><strong>Professional Visuals:</strong> Consistent style, high resolution, good composition</li>
+                            <li><strong>Curated Selection:</strong> 5-8 best projects yang relevant dengan target role</li>
+                            <li><strong>Multiple Contact Options:</strong> Email, LinkedIn, contact form</li>
+                            <li><strong>Fresh Content:</strong> Regular updates dengan recent work</li>
+                            <li><strong>Optimized Performance:</strong> Fast loading, SEO-friendly, responsive design</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Critical Mistake:</strong> Jangan pernah menggunakan placeholder text atau Lorem Ipsum di portfolio live. Ini menunjukkan kurangnya attention to detail dan bisa merusak profesionalisme secara instant.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Content Strategy -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Content Strategy: Portfolio tanpa Experience</h2>
+                
+                <div class="analogy-box">
+                    <p>Membangun portfolio tanpa work experience seperti memulai bisnis tanpa modal besar - kuncinya adalah creativity, resourcefulness, dan strategic positioning untuk maximize aset yang ada.</p>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h4>Academic Projects Transformation</h4>
+                        <p><strong>Strategy:</strong> Transform tugas kuliah menjadi professional case studies</p>
+                        <div class="checklist">
+                            <ul>
+                                <li>Reframe project brief sebagai client requirements</li>
+                                <li>Document process dan decision making</li>
+                                <li>Highlight challenges dan solutions</li>
+                                <li>Show measurable outcomes atau feedback</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>Personal Project Development</h4>
+                        <p><strong>Strategy:</strong> Create projects yang solve real problems</p>
+                        <div class="checklist">
+                            <ul>
+                                <li>Identify problems di daily life atau community</li>
+                                <li>Research existing solutions dan gaps</li>
+                                <li>Develop unique approach atau improvement</li>
+                                <li>Document entire process sebagai case study</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>Redesign & Concept Work</h4>
+                        <p><strong>Strategy:</strong> Improve existing designs dengan fresh perspective</p>
+                        <div class="checklist">
+                            <ul>
+                                <li>Analyze popular apps/websites yang bisa improved</li>
+                                <li>Create detailed critique dan problem analysis</li>
+                                <li>Design better solutions dengan clear rationale</li>
+                                <li>Present as professional design audit</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>Volunteer & Competition Work</h4>
+                        <p><strong>Strategy:</strong> Leverage non-paid work sebagai professional experience</p>
+                        <div class="checklist">
+                            <ul>
+                                <li>Document NGO atau community projects</li>
+                                <li>Highlight hackathon atau competition entries</li>
+                                <li>Show impact metrics dari volunteer work</li>
+                                <li>Present as client projects dengan results</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Essential Pages -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Essential Pages & Information Architecture</h2>
+                
+                <div class="analogy-box">
+                    <p>Structure website portfolio seperti merancang flow museum - setiap ruang punya purpose, visitor journey harus logical, dan climax (project showcase) ditempatkan strategis untuk maximum impact.</p>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h4>Homepage - The Hook</h4>
+                        <p><strong>Goal:</strong> Capture attention dalam 3 detik pertama</p>
+                        <div class="checklist">
+                            <ul>
+                                <li>Clear value proposition dalam 1 sentence</li>
+                                <li>Professional hero image atau video</li>
+                                <li>Key skills atau services overview</li>
+                                <li>Social proof (testimonial/client logos)</li>
+                                <li>Clear CTA ke projects atau contact</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>About - The Connection</h4>
+                        <p><strong>Goal:</strong> Build trust dan emotional connection</p>
+                        <div class="checklist">
+                            <ul>
+                                <li>Personal story yang relevant dengan profession</li>
+                                <li>Skills matrix dengan proficiency levels</li>
+                                <li>Values dan working philosophy</li>
+                                <li>Education, certifications, achievements</li>
+                                <li>Fun facts untuk personality touch</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>Projects - The Proof</h4>
+                        <p><strong>Goal:</strong> Demonstrate capabilities with evidence</p>
+                        <div class="checklist">
+                            <ul>
+                                <li>5-8 best projects dengan variety</li>
+                                <li>Case study format: Challenge → Process → Solution → Impact</li>
+                                <li>High-quality visuals dan mockups</li>
+                                <li>Technical skills dan tools used</li>
+                                <li>Quantifiable results when possible</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>Contact - The Conversion</h4>
+                        <p><strong>Goal:</strong> Make it easy untuk start conversation</p>
+                        <div class="checklist">
+                            <ul>
+                                <li>Multiple contact options (email, phone, form)</li>
+                                <li>Response time expectations</li>
+                                <li>Social media links yang professional</li>
+                                <li>Downloadable resume/CV</li>
+                                <li>Availability status untuk freelance work</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Visual Design -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Visual Design & User Experience Best Practices</h2>
+                
+                <div class="analogy-box">
+                    <p>Design portfolio yang baik seperti interior rumah yang well-designed - setiap elemen punya purpose, color harmony menciptakan mood yang tepat, dan furniture arrangement memfasilitasi smooth movement.</p>
+                </div>
+
+                <div class="comparison-container">
+                    <div class="bad-example">
+                        <h3>Visual Design DON'Ts</h3>
+                        <ul style="margin: 15px 0;">
+                            <li><strong>Too Many Colors:</strong> Rainbow effect yang overwhelming dan unprofessional</li>
+                            <li><strong>Inconsistent Typography:</strong> 5+ different fonts dalam satu page</li>
+                            <li><strong>Poor Hierarchy:</strong> Semua text sama size, tidak ada emphasis</li>
+                            <li><strong>Cluttered Layout:</strong> No whitespace, elements bertumpuk</li>
+                            <li><strong>Low Quality Images:</strong> Pixelated, watermarked, atau stock photos generic</li>
+                            <li><strong>Poor Loading Speed:</strong> 5MB+ images tanpa compression</li>
+                            <li><strong>Not Mobile Friendly:</strong> Text terlalu kecil di mobile</li>
+                        </ul>
+                    </div>
+
+                    <div class="good-example">
+                        <h3>Visual Design DOs</h3>
+                        <ul style="margin: 15px 0;">
+                            <li><strong>Consistent Color Palette:</strong> 2-3 primary colors + neutral tones</li>
+                            <li><strong>Typography Hierarchy:</strong> Max 2 fonts dengan clear size differentiation</li>
+                            <li><strong>Strategic White Space:</strong> Give content room to breathe</li>
+                            <li><strong>Grid System:</strong> Consistent alignment dan spacing</li>
+                            <li><strong>High-Quality Visuals:</strong> Professional photos, clean screenshots</li>
+                            <li><strong>Optimized Performance:</strong> Images under 500KB, lazy loading</li>
+                            <li><strong>Mobile-First Design:</strong> Touch-friendly, readable pada all devices</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Pro Tip:</strong> Test portfolio Anda di minimum 3 different devices (desktop, tablet, mobile) dan 3 different browsers sebelum go-live. 40% traffic adalah mobile users.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: WordPress Implementation -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>WordPress Implementation Essentials</h2>
+                
+                <div class="analogy-box">
+                    <p>Memilih WordPress untuk portfolio seperti memilih Toyota untuk mobil pertama - reliable, widely supported, mudah maintenance, dan ada spare parts dimana-mana kalau butuh help.</p>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h4>Theme Selection Strategy</h4>
+                        <div class="checklist">
+                            <ul>
+                                <li>Mobile responsive (non-negotiable)</li>
+                                <li>Loading speed under 3 seconds</li>
+                                <li>SEO-friendly structure</li>
+                                <li>Regular updates dari developer</li>
+                                <li>Good reviews dan support</li>
+                                <li>Portfolio-specific features</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>Essential Plugin Stack</h4>
+                        <div class="checklist">
+                            <ul>
+                                <li>Yoast SEO - Search engine optimization</li>
+                                <li>WP Rocket - Caching dan speed optimization</li>
+                                <li>Smush - Image compression</li>
+                                <li>Contact Form 7 - Professional contact forms</li>
+                                <li>UpdraftPlus - Automated backups</li>
+                                <li>Elementor - Drag-and-drop page builder</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>Content Organization</h4>
+                        <div class="checklist">
+                            <ul>
+                                <li>Create custom post types untuk projects</li>
+                                <li>Use categories untuk project types</li>
+                                <li>Tag projects dengan relevant skills</li>
+                                <li>Create template untuk consistent project pages</li>
+                                <li>Setup portfolio galleries dengan lightbox</li>
+                                <li>Enable comments untuk engagement</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>SEO Foundation</h4>
+                        <div class="checklist">
+                            <ul>
+                                <li>Keyword research untuk your niche</li>
+                                <li>Meta descriptions untuk all pages</li>
+                                <li>Alt text untuk all images</li>
+                                <li>XML sitemap generation</li>
+                                <li>Google Analytics dan Search Console</li>
+                                <li>Schema markup untuk rich snippets</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Maintenance & Growth -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Portfolio Maintenance & Continuous Improvement</h2>
+                
+                <div class="analogy-box">
+                    <p>Portfolio maintenance seperti merawat tanaman - perlu watering (content updates), pruning (remove outdated work), dan fertilizing (new skills & projects) secara regular untuk tetap healthy dan growing.</p>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h4>Monthly Updates</h4>
+                        <div class="checklist">
+                            <ul>
+                                <li>Add new project atau update existing ones</li>
+                                <li>Review dan update About section</li>
+                                <li>Check for broken links atau images</li>
+                                <li>Update skills atau certifications</li>
+                                <li>Review Google Analytics data</li>
+                                <li>Backup website dan database</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>Quarterly Reviews</h4>
+                        <div class="checklist">
+                            <ul>
+                                <li>Audit semua content untuk relevance</li>
+                                <li>Remove outdated atau weak projects</li>
+                                <li>Update professional goals dan direction</li>
+                                <li>Review competitor portfolios</li>
+                                <li>Test website speed dan mobile experience</li>
+                                <li>Update contact information dan availability</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>Annual Overhauls</h4>
+                        <div class="checklist">
+                            <ul>
+                                <li>Complete design refresh if needed</li>
+                                <li>Restructure information architecture</li>
+                                <li>Update professional photography</li>
+                                <li>Review dan optimize untuk new career goals</li>
+                                <li>Implement new technologies atau trends</li>
+                                <li>Conduct user testing dengan peers</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">2-3x</span>
+                        <p>Higher callback rate untuk portfolios yang di-update regular vs static</p>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">45%</span>
+                        <p>Increase dalam website traffic setelah major content refresh</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Action Plan -->
+        <div class="slide">
+            <div class="slide-content">
+                <h2>Action Plan: From Workshop to Live Portfolio</h2>
+                
+                <div class="analogy-box">
+                    <p>Membangun portfolio seperti marathon, bukan sprint - yang penting adalah consistent progress, bukan perfection di hari pertama. Start with MVP (Minimum Viable Portfolio) lalu iterate untuk improvement.</p>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h4>Week 1: Foundation</h4>
+                        <div class="checklist">
+                            <ul>
+                                <li>Setup domain dan hosting</li>
+                                <li>Install WordPress dan basic plugins</li>
+                                <li>Choose dan customize theme</li>
+                                <li>Create basic page structure</li>
+                                <li>Write first draft of About page</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>Week 2: Content Creation</h4>
+                        <div class="checklist">
+                            <ul>
+                                <li>Prepare project assets (images, descriptions)</li>
+                                <li>Write case studies untuk 3-5 best projects</li>
+                                <li>Take atau source professional headshots</li>
+                                <li>Setup contact forms dan social links</li>
+                                <li>Create compelling homepage copy</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>Week 3: Polish & Optimize</h4>
+                        <div class="checklist">
+                            <ul>
+                                <li>Review grammar, spelling, consistency</li>
+                                <li>Optimize images untuk speed</li>
+                                <li>Test mobile responsiveness</li>
+                                <li>Setup Google Analytics</li>
+                                <li>Get feedback dari 2-3 trusted peers</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="content-card">
+                        <h4>Week 4: Launch & Promote</h4>
+                        <div class="checklist">
+                            <ul>
+                                <li>Final testing dan quality assurance</li>
+                                <li>Go live dengan portfolio</li>
+                                <li>Update LinkedIn, resume, email signature</li>
+                                <li>Share di social media dan networks</li>
+                                <li>Start collecting feedback untuk iteration</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="workshop-header">
+                    <h3>Exclusive Workshop Benefit</h3>
+                    <p><strong>DomaiNesia Partnership:</strong> Participants mendapat special pricing untuk domain + hosting package, plus priority support untuk 6 bulan pertama. Investment yang worth it untuk professional online presence.</p>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Remember:</strong> Portfolio yang good-enough dan live hari ini lebih valuable daripada perfect portfolio yang masih dalam development bulan depan. Launch first, improve iteratively.
+                </div>
+
+                <div style="text-align: center; margin-top: 30px;">
+                    <h2>Let's Build Your Digital Future</h2>
+                    <p class="subtitle">Questions, Discussion & Hands-On Session</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <div class="nav-container">
+        <button class="nav-btn" id="prevBtn" onclick="previousSlide()">← Previous</button>
+        
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div class="slide-dots" id="slideDots"></div>
+            <div class="slide-indicator">
+                <span id="currentSlide">1</span> / <span id="totalSlides">10</span>
+            </div>
+        </div>
+        
+        <button class="nav-btn" id="nextBtn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        // Update total slides counter
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        // Create slide dots
+        function createSlideDots() {
+            const dotsContainer = document.getElementById('slideDots');
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => goToSlide(i);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        // Show specific slide
+        function showSlide(index) {
+            // Hide all slides
+            slides.forEach(slide => slide.classList.remove('active'));
+            
+            // Show current slide
+            slides[index].classList.add('active');
+            
+            // Update slide counter
+            document.getElementById('currentSlide').textContent = index + 1;
+            
+            // Update dots
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === totalSlides - 1;
+        }
+
+        // Go to specific slide
+        function goToSlide(index) {
+            if (index >= 0 && index < totalSlides) {
+                currentSlideIndex = index;
+                showSlide(currentSlideIndex);
+            }
+        }
+
+        // Next slide function
+        function nextSlide() {
+            if (currentSlideIndex < totalSlides - 1) {
+                currentSlideIndex++;
+                showSlide(currentSlideIndex);
+            }
+        }
+
+        // Previous slide function
+        function previousSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                showSlide(currentSlideIndex);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight' || event.key === ' ') {
+                event.preventDefault();
+                nextSlide();
+            } else if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                previousSlide();
+            }
+        });
+
+        // Initialize presentation
+        function initPresentation() {
+            createSlideDots();
+            showSlide(0);
+        }
+
+        // Start presentation when page loads
+        document.addEventListener('DOMContentLoaded', initPresentation);
+    </script>
+</body>
+</html>
